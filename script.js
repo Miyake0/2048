@@ -39,39 +39,47 @@ function moveUp() {
   slideTiles(grid.cellsGroupedByColumn);
 }
 
+function moveDown() {
+  slideTiles(grid.cellsGroupedByColumnReversed);
+}
+
+function moveLeft() {
+  slideTiles(grid.cellsGroupedByRow);
+}
+
 function slideTiles(groupedCells) {
   groupedCells.forEach((group) => slideTilesInGroup(group));
 
   grid.cells.forEach((cell) => {
     cell.hasTileForMerge() && cell.mergeTiles();
   });
+}
 
-  function slideTilesInGroup(group) {
-    for (let i = 1; i < group.length; i++) {
-      if (group[i].isEmpty()) {
-        continue;
-      }
-
-      const cellWithTile = group[i];
-
-      let targetCell;
-      let j = i - 1;
-      while (j >= 0 && group[j].canAccept(cellWithTile.linkedTile)) {
-        targetCell = group[j];
-        j--;
-      }
-
-      if (!targetCell) {
-        continue;
-      }
-
-      if (targetCell.isEmpty) {
-        targetCell.linkTile(cellWithTile.linkedTile);
-      } else {
-        targetCell.linkTileForMerge(cellWithTile.linkedTile);
-      }
-
-      cellWithTile.unlinkTile();
+function slideTilesInGroup(group) {
+  for (let i = 1; i < group.length; i++) {
+    if (group[i].isEmpty()) {
+      continue;
     }
+
+    const cellWithTile = group[i];
+
+    let targetCell;
+    let j = i - 1;
+    while (j >= 0 && group[j].canAccept(cellWithTile.linkedTile)) {
+      targetCell = group[j];
+      j--;
+    }
+
+    if (!targetCell) {
+      continue;
+    }
+
+    if (targetCell.isEmpty()) {
+      targetCell.linkTile(cellWithTile.linkedTile);
+    } else {
+      targetCell.linkTileForMerge(cellWithTile.linkedTile);
+    }
+
+    cellWithTile.unlinkTile();
   }
 }

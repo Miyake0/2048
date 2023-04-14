@@ -31,8 +31,6 @@ function handleInput(event) {
       setupInputOnce();
       return;
   }
-
-  setupInputOnce();
 }
 
 function moveUp() {
@@ -45,6 +43,10 @@ function moveDown() {
 
 function moveLeft() {
   slideTiles(grid.cellsGroupedByRow);
+}
+
+function moveRight() {
+  slideTiles(grid.cellsGroupedByRowReversed);
 }
 
 function slideTiles(groupedCells) {

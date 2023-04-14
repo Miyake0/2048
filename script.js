@@ -31,6 +31,7 @@ function handleInput(event) {
       setupInputOnce();
       return;
   }
+  setupInputOnce();
 }
 
 function moveUp() {
